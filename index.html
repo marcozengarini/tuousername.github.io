@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENCO — Agenzia Digitale Marche</title>
+<meta name="description" content="ZENCO è un'agenzia digitale e creativa nelle Marche. Social media, video editing e strategia per portare il tuo brand in cima.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --cream:#f7f5f0;
+    --gold:#b8935f;
+    --grey:#8a8a8a;
+    --grey-dark:#444444;
+    --line:rgba(0,0,0,0.1);
+    --line-light:rgba(255,255,255,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--black);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 22px;}}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(247,245,240,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1180px;margin:0 auto;}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:1px;}
+  .nav-links{display:flex;gap:36px;font-size:14px;font-weight:500;}
+  .nav-links a{position:relative;padding-bottom:4px;}
+  .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--black);transition:width .25s;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--black);color:var(--cream);
+    padding:11px 22px;border-radius:2px;font-size:13px;font-weight:600;
+    letter-spacing:.3px;transition:background .25s;
+  }
+  .nav-cta:hover{background:var(--gold);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger span{width:24px;height:2px;background:var(--black);}
+  @media(max-width:860px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    position:relative;
+    padding-top:90px;
+    overflow:hidden;
+  }
+  .hero-z{
+    position:absolute;
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:min(70vw,900px);
+    line-height:1;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(10,10,10,0.06);
+    right:-8%;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:0;
+    pointer-events:none;
+    user-select:none;
+  }
+  .hero-inner{position:relative;z-index:1;}
+  .eyebrow{
+    font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--gold);margin-bottom:24px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+  .hero h1{
+    font-size:clamp(42px,7vw,92px);
+    font-weight:600;
+    line-height:1.02;
+    letter-spacing:-1.5px;
+    max-width:920px;
+  }
+  .hero h1 em{font-style:italic;font-weight:300;color:var(--gold);}
+  .hero p.lead{
+    font-size:19px;color:var(--grey-dark);max-width:520px;margin-top:28px;line-height:1.6;
+  }
+  .hero-actions{display:flex;gap:18px;margin-top:44px;flex-wrap:wrap;align-items:center;}
+  .btn-primary{
+    background:var(--black);color:var(--cream);
+    padding:17px 34px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.4px;
+    transition:transform .25s, background .25s;display:inline-block;
+  }
+  .btn-primary:hover{background:var(--gold);transform:translateY(-2px);}
+  .btn-secondary{
+    font-size:14px;font-weight:600;letter-spacing:.3px;
+    border-bottom:1px solid var(--black);padding-bottom:4px;
+    transition:opacity .25s;
+  }
+  .btn-secondary:hover{opacity:.6;}
+  .hero-scroll{
+    position:absolute;bottom:40px;left:32px;font-size:12px;color:var(--grey);
+    writing-mode:vertical-rl;letter-spacing:2px;display:flex;align-items:center;gap:10px;
+  }
+  .hero-scroll::after{content:'';width:1px;height:50px;background:var(--grey);}
+  @media(max-width:640px){.hero-scroll{display:none;}}
+
+  /* ---------- MARQUEE STRIP ---------- */
+  .strip{
+    background:var(--black);color:var(--cream);
+    padding:16px 0;overflow:hidden;white-space:nowrap;
+    border-top:1px solid var(--line-light);border-bottom:1px solid var(--line-light);
+  }
+  .strip-track{display:inline-flex;animation:scroll 26s linear infinite;}
+  .strip-track span{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:18px;
+    padding:0 36px;color:rgba(247,245,240,0.55);
+  }
+  .strip-track span b{color:var(--gold);font-style:normal;font-weight:600;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:140px 0;position:relative;}
+  @media(max-width:760px){section{padding:90px 0;}}
+  .section-head{margin-bottom:72px;max-width:680px;}
+  .num{
+    font-size:13px;font-weight:600;color:var(--gold);letter-spacing:2px;margin-bottom:18px;
+    display:block;
+  }
+  .section-head h2{font-size:clamp(32px,4.5vw,52px);font-weight:600;letter-spacing:-1px;line-height:1.1;}
+  .section-head p{font-size:17px;color:var(--grey-dark);margin-top:18px;line-height:1.6;max-width:560px;}
+  .rule{border:none;border-top:1px solid var(--line);}
+
+  /* ---------- CHI SIAMO STRIP (Home teaser) ---------- */
+  .about-teaser{background:var(--black);color:var(--cream);}
+  .about-teaser .section-head p{color:rgba(247,245,240,0.65);}
+  .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start;}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:48px;}}
+  .about-grid blockquote{
+    font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:clamp(24px,2.8vw,34px);line-height:1.35;color:var(--cream);
+  }
+  .stat-row{display:flex;flex-direction:column;gap:34px;}
+  .stat{border-top:1px solid var(--line-light);padding-top:18px;}
+  .stat .n{font-family:'Fraunces',serif;font-size:42px;font-weight:600;color:var(--gold);}
+  .stat .l{font-size:13px;color:rgba(247,245,240,0.5);margin-top:4px;letter-spacing:.3px;}
+
+  /* ---------- SERVIZI (Home) ---------- */
+  .services-list{border-top:1px solid var(--line);}
+  .service-row{
+    display:grid;grid-template-columns:90px 1fr 260px;gap:32px;align-items:center;
+    padding:38px 0;border-bottom:1px solid var(--line);
+    transition:padding-left .3s;
+  }
+  .service-row:hover{padding-left:14px;}
+  .service-row .si{font-family:'Fraunces',serif;font-size:15px;color:var(--gold);font-weight:600;}
+  .service-row h3{font-size:24px;font-weight:600;letter-spacing:-.3px;}
+  .service-row p{font-size:15px;color:var(--grey-dark);margin-top:6px;max-width:480px;}
+  .service-row .arrow{
+    justify-self:end;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:16px;
+    transition:background .25s, border-color .25s, transform .25s;
+  }
+  .service-row:hover .arrow{background:var(--black);color:var(--cream);border-color:var(--black);transform:rotate(45deg);}
+  @media(max-width:760px){
+    .service-row{grid-template-columns:1fr;gap:10px;}
+    .service-row .arrow{display:none;}
+  }
+
+  /* ---------- WHY (3 col) ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .why-card{background:var(--cream);padding:44px 36px;}
+  .why-card .wn{font-family:'Fraunces',serif;font-size:15px;color:var(--gold);font-weight:600;margin-bottom:22px;display:block;}
+  .why-card h3{font-size:21px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;}
+  .why-card p{font-size:15px;color:var(--grey-dark);line-height:1.6;}
+  @media(max-width:760px){.why-grid{grid-template-columns:1fr;}}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{
+    background:var(--gold);color:var(--black);
+    padding:100px 0;text-align:center;
+  }
+  .cta-band h2{font-size:clamp(30px,5vw,56px);font-weight:600;letter-spacing:-1px;max-width:760px;margin:0 auto 36px;line-height:1.1;}
+  .cta-band .btn-primary{background:var(--black);color:var(--cream);}
+  .cta-band .btn-primary:hover{background:var(--cream);color:var(--black);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--black);color:rgba(247,245,240,0.6);padding:80px 0 30px;}
+  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px;padding-bottom:60px;border-bottom:1px solid var(--line-light);}
+  @media(max-width:760px){.footer-top{grid-template-columns:1fr 1fr;}}
+  .footer-top h4{color:var(--cream);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;}
+  .footer-top li{margin-bottom:11px;font-size:14px;}
+  .footer-top li a:hover{color:var(--gold);}
+  .footer-logo{font-family:'Fraunces',serif;font-weight:700;font-size:24px;color:var(--cream);margin-bottom:14px;}
+  .footer-bottom{display:flex;justify-content:space-between;padding-top:26px;font-size:13px;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- PAGE HERO (sub pages) ---------- */
+  .page-hero{padding:180px 0 80px;border-bottom:1px solid var(--line);}
+  .page-hero .num{margin-bottom:20px;}
+  .page-hero h1{font-size:clamp(38px,6vw,68px);font-weight:600;letter-spacing:-1.5px;max-width:760px;line-height:1.05;}
+  .page-hero p.lead{font-size:18px;color:var(--grey-dark);max-width:560px;margin-top:24px;line-height:1.6;}
+
+  /* ---------- SERVIZI PAGE detail cards ---------- */
+  .svc-detail{padding:90px 0;border-bottom:1px solid var(--line);}
+  .svc-detail-grid{display:grid;grid-template-columns:.9fr 1.4fr;gap:64px;}
+  @media(max-width:860px){.svc-detail-grid{grid-template-columns:1fr;gap:30px;}}
+  .svc-detail .si{font-family:'Fraunces',serif;font-size:64px;font-weight:700;color:var(--gold);line-height:1;}
+  .svc-detail h3{font-size:30px;font-weight:600;margin:18px 0 14px;letter-spacing:-.5px;}
+  .svc-detail p.desc{font-size:16px;color:var(--grey-dark);line-height:1.65;margin-bottom:26px;max-width:600px;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .tag{border:1px solid var(--line);padding:8px 16px;border-radius:30px;font-size:13px;color:var(--grey-dark);}
+
+  /* ---------- CHI SIAMO PAGE ---------- */
+  .founder{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center;}
+  @media(max-width:860px){.founder{grid-template-columns:1fr;gap:40px;}}
+  .founder-photo{
+    aspect-ratio:4/5;background:linear-gradient(155deg,#1a1a1a,#000);border-radius:2px;
+    display:flex;align-items:end;padding:28px;position:relative;overflow:hidden;
+  }
+  .founder-photo .fz{
+    position:absolute;font-family:'Fraunces',serif;font-weight:900;font-size:320px;color:rgba(255,255,255,0.04);
+    top:50%;left:50%;transform:translate(-50%,-50%);
+  }
+  .founder-photo span{position:relative;color:var(--cream);font-size:14px;letter-spacing:1px;}
+  .values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-top:60px;}
+  @media(max-width:640px){.values-grid{grid-template-columns:1fr;}}
+  .value-item{border-left:2px solid var(--gold);padding-left:22px;}
+  .value-item h4{font-size:18px;font-weight:600;margin-bottom:8px;}
+  .value-item p{font-size:14.5px;color:var(--grey-dark);line-height:1.6;}
+
+  /* ---------- CONTATTI PAGE ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;}
+  @media(max-width:860px){.contact-grid{grid-template-columns:1fr;gap:50px;}}
+  .field{margin-bottom:24px;}
+  .field label{display:block;font-size:13px;font-weight:600;letter-spacing:.4px;margin-bottom:8px;}
+  .field input,.field textarea,.field select{
+    width:100%;border:none;border-bottom:1px solid var(--grey);background:transparent;
+    padding:12px 0;font-family:'Inter',sans-serif;font-size:15px;color:var(--black);
+    transition:border-color .25s;
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold);}
+  .field textarea{resize:vertical;min-height:90px;}
+  .submit-btn{
+    background:var(--black);color:var(--cream);border:none;cursor:pointer;
+    padding:17px 36px;font-size:14px;font-weight:600;letter-spacing:.4px;border-radius:2px;
+    transition:background .25s;margin-top:10px;font-family:'Inter',sans-serif;
+  }
+  .submit-btn:hover{background:var(--gold);}
+  .contact-info-item{margin-bottom:38px;}
+  .contact-info-item .l{font-size:13px;color:var(--grey);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
+  .contact-info-item .v{font-family:'Fraunces',serif;font-size:24px;font-weight:500;}
+  .form-msg{margin-top:18px;font-size:14px;display:none;}
+
+  .form-section-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--black);margin:44px 0 20px;padding-top:28px;border-top:1px solid var(--line);}
+  #contactForm .form-section-title:first-of-type{margin-top:0;padding-top:0;border-top:none;}
+  .field-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;}
+  @media(max-width:640px){.field-2col{grid-template-columns:1fr;}}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px 16px;margin-top:12px;}
+  @media(max-width:420px){.check-grid{grid-template-columns:1fr;}}
+  .check-item{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--grey-dark);font-weight:400;cursor:pointer;}
+  .check-item input{accent-color:var(--gold);width:16px;height:16px;flex:none;}
+  .field select{cursor:pointer;}
+  .field ::placeholder{color:#b5b0a6;}
+
+  /* page visibility */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  [data-reveal].in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#" class="logo" data-link="home">ZENCO</a>
+    <ul class="nav-links">
+      <li><a href="#" data-link="home">Home</a></li>
+      <li><a href="#" data-link="servizi">Servizi</a></li>
+      <li><a href="#" data-link="chi-siamo">Chi Siamo</a></li>
+      <li><a href="#" data-link="contatti">Contatti</a></li>
+    </ul>
+    <a href="#" class="nav-cta" data-link="contatti">Consulenza Gratuita</a>
+    <button class="burger" id="burgerBtn" aria-label="Apri menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<!-- ===================== HOME ===================== -->
+<main class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-z">Z</div>
+    <div class="wrap hero-inner">
+      <div class="eyebrow">Agenzia Digitale — Marche, Italia</div>
+      <h1>Portiamo il tuo brand <em>in cima.</em></h1>
+      <p class="lead">ZENCO costruisce strategie social, contenuti video e identità digitali per attività che vogliono smettere di passare inosservate — e iniziare a dominare il proprio mercato.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" data-link="contatti">Prenota una consulenza gratuita</a>
+        <a href="#" class="btn-secondary" data-link="servizi">Scopri i servizi →</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scorri</div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-track">
+      <span>Social Media <b>Management</b></span>
+      <span>Video Editing & <b>Reels</b></span>
+      <span>Content <b>Creation</b></span>
+      <span>Strategia <b>Digitale</b></span>
+      <span>Social Media <b>Management</b></span>
+      <span>Video Editing & <b>Reels</b></span>
+      <span>Content <b>Creation</b></span>
+      <span>Strategia <b>Digitale</b></span>
+    </div>
+  </div>
+
+  <section class="about-teaser">
+    <div class="wrap">
+      <div class="about-grid">
+        <div data-reveal>
+          <span class="num">01 — Chi siamo</span>
+          <blockquote>"Crediamo che ogni attività locale meriti la stessa cura digitale dei grandi brand. Nessun template, nessuna scorciatoia — solo strategia, contenuti e risultati misurabili."</blockquote>
+        </div>
+        <div class="stat-row" data-reveal>
+          <div class="stat"><div class="n" data-count="360" data-suffix="°">360°</div><div class="l">Approccio completo, dalla strategia ai contenuti</div></div>
+          <div class="stat"><div class="n" data-count="1" data-suffix="">1</div><div class="l">Un solo referente per tutto il percorso</div></div>
+          <div class="stat"><div class="n" data-count="100" data-suffix="%">100%</div><div class="l">Strategie su misura, mai template generici</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="num">02 — Cosa facciamo</span>
+        <h2>Servizi pensati per portarti al livello successivo.</h2>
+      </div>
+      <div class="services-list" data-reveal>
+        <a href="#" class="service-row" data-link="servizi">
+          <span class="si">01</span>
+          <div><h3>Social Media Management</h3><p>Gestione completa dei tuoi profili: contenuti, programmazione, community.</p></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="#" class="service-row" data-link="servizi">
+          <span class="si">02</span>
+          <div><h3>Video Editing & Reels</h3><p>Contenuti video che fermano lo scroll e convertono in clienti.</p></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="#" class="service-row" data-link="servizi">
+          <span class="si">03</span>
+          <div><h3>Content Creation & Fotografia</h3><p>Foto e contenuti visivi professionali per ogni piattaforma.</p></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="#" class="service-row" data-link="servizi">
+          <span class="si">04</span>
+          <div><h3>Consulenza Strategica</h3><p>Piani di crescita su misura, con obiettivi chiari e misurabili.</p></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a href="#" class="service-row" data-link="servizi">
+          <span class="si">05</span>
+          <div><h3>Prodotti Fisici Smart</h3><p>Dispositivi esclusivi da integrare nella tua attività: portano nuovi clienti e fanno crescere i tuoi guadagni.</p></div>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="num">03 — Perché ZENCO</span>
+        <h2>Più di un'agenzia: un partner che vince solo se vinci tu.</h2>
+      </div>
+      <div class="why-grid" data-reveal>
+        <div class="why-card">
+          <span class="wn">Cura</span>
+          <h3>Approccio su misura</h3>
+          <p>Ogni strategia è costruita sulla tua attività specifica, mai copiata da un template generico.</p>
+        </div>
+        <div class="why-card">
+          <span class="wn">Chiarezza</span>
+          <h3>Un solo referente</h3>
+          <p>Niente fornitori multipli da coordinare: con ZENCO parli sempre con la stessa persona.</p>
+        </div>
+        <div class="why-card">
+          <span class="wn">Risultati</span>
+          <h3>Numeri, non promesse</h3>
+          <p>Report periodici chiari, per vedere esattamente dove sta andando il tuo investimento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2 data-reveal>Pronto a portare la tua attività dove merita di stare?</h2>
+      <a href="#" class="btn-primary" data-link="contatti" data-reveal>Prenota una consulenza gratuita</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== SERVIZI ===================== -->
+<main class="page" id="page-servizi">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="num">Servizi</span>
+      <h1>Tutto quello che serve per dominare il tuo settore online.</h1>
+      <p class="lead">Questi sono i nostri servizi principali — ma nessun cliente riceve un pacchetto preconfezionato. Per ogni attività costruiamo una soluzione su misura, componendo i servizi secondo le tue esigenze reali.</p>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="wrap">
+      <div class="svc-detail-grid">
+        <div><span class="si">01</span></div>
+        <div>
+          <h3>Social Media Management</h3>
+          <p class="desc">Gestiamo i tuoi profili Instagram e Facebook con un piano editoriale costruito sulla tua attività: post, Reel, storie e community management, pubblicati con costanza e coerenza visiva.</p>
+          <div class="tag-row">
+            <span class="tag">Piano editoriale</span>
+            <span class="tag">Gestione commenti e DM</span>
+            <span class="tag">Bio ottimizzata</span>
+            <span class="tag">Report mensile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="wrap">
+      <div class="svc-detail-grid">
+        <div><span class="si">02</span></div>
+        <div>
+          <h3>Video Editing & Reels</h3>
+          <p class="desc">Produciamo contenuti video pensati per fermare lo scroll: montaggio ritmico, sottotitoli, color correction. Lavoriamo anche con creator e YouTuber per contenuti long-form.</p>
+          <div class="tag-row">
+            <span class="tag">Reel & Short</span>
+            <span class="tag">Montaggio professionale</span>
+            <span class="tag">Sottotitoli animati</span>
+            <span class="tag">Video per creator</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="wrap">
+      <div class="svc-detail-grid">
+        <div><span class="si">03</span></div>
+        <div>
+          <h3>Content Creation & Fotografia</h3>
+          <p class="desc">Sessioni fotografiche presso la tua sede per catturare prodotti, ambienti e team con uno stile coerente, pronto per ogni piattaforma social.</p>
+          <div class="tag-row">
+            <span class="tag">Fotografia prodotto</span>
+            <span class="tag">Fotografia ambienti</span>
+            <span class="tag">Editing professionale</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail">
+    <div class="wrap">
+      <div class="svc-detail-grid">
+        <div><span class="si">04</span></div>
+        <div>
+          <h3>Consulenza Strategica Aziendale</h3>
+          <p class="desc">Analisi del brand, dei competitor e del mercato, con un piano di crescita costruito sui tuoi obiettivi reali. Ideale per chi vuole un partner strategico, non solo operativo.</p>
+          <div class="tag-row">
+            <span class="tag">Analisi competitor</span>
+            <span class="tag">Piano di crescita</span>
+            <span class="tag">Riunioni periodiche</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-detail" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="svc-detail-grid">
+        <div><span class="si">05</span></div>
+        <div>
+          <h3>Prodotti Fisici Smart</h3>
+          <p class="desc">Una linea di dispositivi fisici esclusivi, personalizzati con il tuo brand, che si integrano nella tua attività e lavorano per te ogni giorno: portano nuovi clienti e fanno crescere i guadagni, in automatico. Come funzionano? Te lo mostriamo dal vivo, in consulenza.</p>
+          <div class="tag-row">
+            <span class="tag">Design personalizzato</span>
+            <span class="tag">Installazione inclusa</span>
+            <span class="tag">Più clienti, più guadagni</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-track">
+      <span>Nessun <b>template</b></span>
+      <span>Solo <b>su misura</b></span>
+      <span>Analisi a <b>360°</b></span>
+      <span>Il cliente non è <b>un numero</b></span>
+      <span>Nessun <b>template</b></span>
+      <span>Solo <b>su misura</b></span>
+      <span>Analisi a <b>360°</b></span>
+      <span>Il cliente non è <b>un numero</b></span>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="num">Su misura</span>
+        <h2>Il tuo pacchetto non esiste ancora: lo costruiamo insieme.</h2>
+        <p>Per noi il cliente non è un numero, ma un'attività da studiare, seguire e aiutare a 360 gradi. Nella consulenza gratuita capiamo dove sei e dove vuoi arrivare — e componiamo i servizi nel modo più efficace per te, in modo unico e personale.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Non sai da quale servizio iniziare?</h2>
+      <a href="#" class="btn-primary" data-link="contatti">Parliamone insieme, è gratis</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== CHI SIAMO ===================== -->
+<main class="page" id="page-chi-siamo">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="num">Chi siamo</span>
+      <h1>Nata per dare alle attività locali lo stesso livello dei grandi brand.</h1>
+      <p class="lead">ZENCO è un'agenzia digitale con sede nelle Marche, costruita attorno a un'idea semplice: la qualità digitale non dovrebbe essere un privilegio solo delle grandi aziende.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="founder" data-reveal>
+        <div class="founder-photo">
+          <div class="fz">Z</div>
+          <span>Marco Zengarini — Fondatore<br><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener" style="color:var(--gold);">@zenco.it</a></span>
+        </div>
+        <div>
+          <span class="num">Il fondatore</span>
+          <h2 style="font-size:32px;font-weight:600;letter-spacing:-.5px;margin-bottom:18px;">Marco Zengarini</h2>
+          <p style="font-size:16px;color:var(--grey-dark);line-height:1.7;max-width:520px;">Sono cresciuto dentro un'azienda di famiglia, lavorando fin da piccolo accanto a mio padre e mio zio. Lì ho imparato cosa significa mandare avanti un'attività vera: la cura del cliente, il lavoro di ogni giorno, le decisioni che pesano. Mio padre mi ha insegnato molto; il resto l'ho imparato sul campo, con le mie esperienze.</p>
+          <p style="font-size:16px;color:var(--grey-dark);line-height:1.7;max-width:520px;margin-top:16px;">In parallelo è cresciuta la parte digitale: creo contenuti sui social da quando ero ragazzino, e questo mi ha permesso di osservare da vicino come cambiano le piattaforme e i loro algoritmi, anno dopo anno. Ho imparato il video editing da autodidatta, fino a portarlo a livello professionale, e negli anni ho fatto crescere i profili di amici e delle prime attività che si sono affidate a me.</p>
+          <p style="font-size:16px;color:var(--grey-dark);line-height:1.7;max-width:520px;margin-top:16px;">ZENCO unisce questi due mondi: la mentalità concreta di chi è cresciuto in azienda e la competenza di chi i social li vive da sempre. È l'agenzia che avrei voluto al fianco dell'attività della mia famiglia.</p>
+        </div>
+      </div>
+
+      <div class="values-grid" data-reveal>
+        <div class="value-item">
+          <h4>Zero compromessi</h4>
+          <p>Sulla qualità del lavoro consegnato, sempre.</p>
+        </div>
+        <div class="value-item">
+          <h4>Elevare ogni brand</h4>
+          <p>Al massimo del proprio potenziale, senza scorciatoie.</p>
+        </div>
+        <div class="value-item">
+          <h4>Nuovi risultati</h4>
+          <p>Misurabili, concreti, raccontati con trasparenza.</p>
+        </div>
+        <div class="value-item">
+          <h4>Creatività al servizio della crescita</h4>
+          <p>Mai fine a se stessa: ogni contenuto ha un obiettivo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Vuoi lavorare con noi?</h2>
+      <a href="#" class="btn-primary" data-link="contatti">Prenota una consulenza gratuita</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== CONTATTI ===================== -->
+<main class="page" id="page-contatti">
+
+  <section class="page-hero" style="border-bottom:none;padding-bottom:40px;">
+    <div class="wrap">
+      <span class="num">Contatti</span>
+      <h1>Parliamo della tua crescita.</h1>
+      <p class="lead">Compila il modulo o scrivici direttamente: la prima consulenza è sempre gratuita e senza impegno.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:20px;">
+    <div class="wrap">
+      <div class="contact-grid">
+        <form id="contactForm" data-reveal>
+
+          <div class="form-section-title">I tuoi contatti</div>
+          <div class="field-2col">
+            <div class="field"><label for="f-nome">Nome e Cognome *</label><input type="text" id="f-nome" name="nome" required></div>
+            <div class="field"><label for="f-tel">Telefono *</label><input type="tel" id="f-tel" name="telefono" required></div>
+          </div>
+          <div class="field"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" required></div>
+
+          <div class="form-section-title">La tua azienda</div>
+          <div class="field"><label for="f-azienda">Nome dell'azienda *</label><input type="text" id="f-azienda" name="azienda" required></div>
+          <div class="field"><label for="f-settore">Di cosa si occupa l'azienda? *</label><input type="text" id="f-settore" name="settore" placeholder="Es. ristorante, hotel, palestra, studio professionale..." required></div>
+          <div class="field-2col">
+            <div class="field"><label for="f-anni">Da quanti anni esiste?</label>
+              <select id="f-anni" name="anni_attivita"><option value="">Seleziona…</option><option>Meno di 1 anno</option><option>1–3 anni</option><option>3–10 anni</option><option>Più di 10 anni</option></select></div>
+            <div class="field"><label for="f-paese">In che paese / città si trova? *</label><input type="text" id="f-paese" name="localita" required></div>
+          </div>
+          <div class="field-2col">
+            <div class="field"><label for="f-soci">Sei solo o hai soci?</label>
+              <select id="f-soci" name="soci"><option value="">Seleziona…</option><option>Sono solo</option><option>1 socio</option><option>2–3 soci</option><option>Più di 3 soci</option></select></div>
+            <div class="field"><label for="f-collab">Collaboratori fissi</label>
+              <select id="f-collab" name="collaboratori"><option value="">Seleziona…</option><option>Nessuno</option><option>1–3</option><option>4–10</option><option>11–30</option><option>Più di 30</option></select></div>
+          </div>
+          <div class="field"><label for="f-fatturato">Range di fatturato annuo</label>
+            <select id="f-fatturato" name="fatturato"><option value="">Seleziona…</option><option>Fino a €100.000</option><option>€100.000 – €250.000</option><option>€250.000 – €500.000</option><option>€500.000 – €1.000.000</option><option>Oltre €1.000.000</option><option>Preferisco non dirlo</option></select></div>
+
+          <div class="form-section-title">La tua presenza online</div>
+          <div class="field"><label for="f-ig">Instagram dell'azienda</label><input type="text" id="f-ig" name="instagram" placeholder="@nomeazienda">
+            <label class="check-item" style="margin-top:12px;"><input type="checkbox" id="f-no-ig" name="no_instagram" value="Sì"> Non abbiamo Instagram</label></div>
+          <div class="field"><label>Su quali piattaforme è visibile l'azienda?</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="Instagram"> Instagram</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="Facebook"> Facebook</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="TikTok"> TikTok</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="YouTube"> YouTube</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="Google (scheda attività)"> Google (scheda attività)</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="Sito web"> Sito web</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="LinkedIn"> LinkedIn</label>
+              <label class="check-item"><input type="checkbox" name="piattaforme" value="Nessuna"> Nessuna</label>
+            </div></div>
+          <div class="field"><label for="f-produce">State già producendo contenuti per i social?</label>
+            <select id="f-produce" name="produce_contenuti"><option value="">Seleziona…</option><option>Sì, con regolarità</option><option>Sì, ogni tanto</option><option>No, non ancora</option></select></div>
+          <div class="field"><label for="f-problemi">Se sì: cosa non ti convince della produzione attuale?</label><textarea id="f-problemi" name="problemi_attuali" rows="3" placeholder="Qualità, costanza, risultati, tempo che porta via..."></textarea></div>
+
+          <div class="form-section-title">Cosa cerchi</div>
+          <div class="field"><label for="f-obiettivo">Che obiettivo vuoi raggiungere con noi? *</label><textarea id="f-obiettivo" name="obiettivo" rows="3" required placeholder="Es. più clienti nel weekend, far conoscere il nuovo locale, vendere di più..."></textarea></div>
+          <div class="field"><label>A quali servizi sei interessato?</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="servizi" value="Gestione social"> Gestione social</label>
+              <label class="check-item"><input type="checkbox" name="servizi" value="Video e Reel"> Video e Reel</label>
+              <label class="check-item"><input type="checkbox" name="servizi" value="Servizi fotografici"> Servizi fotografici</label>
+              <label class="check-item"><input type="checkbox" name="servizi" value="Consulenza strategica"> Consulenza strategica</label>
+              <label class="check-item"><input type="checkbox" name="servizi" value="Sito web"> Sito web</label>
+              <label class="check-item"><input type="checkbox" name="servizi" value="Prodotti fisici smart"> Prodotti fisici smart</label>
+              <label class="check-item"><input type="checkbox" name="servizi" value="Non lo so ancora"> Non lo so ancora</label>
+            </div></div>
+          <div class="field"><label for="f-budget">Budget mensile indicativo per il marketing</label>
+            <select id="f-budget" name="budget"><option value="">Seleziona…</option><option>Fino a €300</option><option>€300 – €500</option><option>€500 – €1.000</option><option>€1.000 – €2.500</option><option>Oltre €2.500</option><option>Da definire insieme</option></select></div>
+
+          <button type="submit" class="submit-btn">Invia richiesta</button>
+          <p style="font-size:12.5px;color:var(--grey);margin-top:14px;line-height:1.5;">Più dettagli ci dai, più la prima consulenza sarà concreta e utile. I tuoi dati restano riservati.</p>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+
+        <div data-reveal>
+          <div class="contact-info-item">
+            <div class="l">Email</div>
+            <div class="v">ZENCO.msc@gmail.com</div>
+          </div>
+          <div class="contact-info-item">
+            <div class="l">Dove operiamo</div>
+            <div class="v">Marche, Italia — lavoriamo ovunque</div>
+          </div>
+          <div class="contact-info-item">
+            <div class="l">Instagram</div>
+            <div class="v"><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener">@zenco.it</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="l">Tempo di risposta</div>
+            <div class="v">Entro 24 ore lavorative</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">ZENCO</div>
+        <p style="font-size:14px;line-height:1.6;max-width:260px;">Agenzia digitale e creativa. Portiamo il tuo brand dove conta.</p>
+      </div>
+      <div>
+        <h4>Naviga</h4>
+        <ul>
+          <li><a href="#" data-link="home">Home</a></li>
+          <li><a href="#" data-link="servizi">Servizi</a></li>
+          <li><a href="#" data-link="chi-siamo">Chi Siamo</a></li>
+          <li><a href="#" data-link="contatti">Contatti</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servizi</h4>
+        <ul>
+          <li><a href="#" data-link="servizi">Social Media</a></li>
+          <li><a href="#" data-link="servizi">Video Editing</a></li>
+          <li><a href="#" data-link="servizi">Consulenza</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contatti</h4>
+        <ul>
+          <li><a href="mailto:ZENCO.msc@gmail.com">ZENCO.msc@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener">Instagram — @zenco.it</a></li>
+          <li>Marche, Italia</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ZENCO — Zengarini Multi-Service Company</span>
+      <span>P.IVA in fase di apertura</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Routing semplice tra "pagine" (single file, no reload) ----
+  const pages = document.querySelectorAll('.page');
+  const links = document.querySelectorAll('[data-link]');
+  function goTo(id){
+    pages.forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({top:0,behavior:'instant'});
+    document.getElementById('mobileMenu')?.classList.remove('open');
+    revealCheck();
+    animateCounters();
+  }
+  links.forEach(l => l.addEventListener('click', e => {
+    e.preventDefault();
+    goTo(l.dataset.link);
+  }));
+
+  // ---- Burger menu (mobile) ----
+  const burgerBtn = document.getElementById('burgerBtn');
+  burgerBtn.addEventListener('click', () => {
+    const nav = document.querySelector('.nav-links');
+    if(nav.style.display === 'flex'){
+      nav.style.display = 'none';
+    } else {
+      nav.style.cssText = 'display:flex;position:fixed;top:73px;left:0;right:0;background:#f7f5f0;flex-direction:column;padding:24px 32px;gap:18px;border-bottom:1px solid rgba(0,0,0,0.1);';
+    }
+  });
+
+  // ---- Scroll reveal ----
+  function revealCheck(){
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight * 0.88){ el.classList.add('in'); }
+    });
+  }
+  window.addEventListener('scroll', revealCheck);
+  window.addEventListener('load', revealCheck);
+
+  // ---- Checkbox "Non abbiamo Instagram" ----
+  const noIg = document.getElementById('f-no-ig'), igInput = document.getElementById('f-ig');
+  if(noIg && igInput){
+    noIg.addEventListener('change', () => {
+      igInput.disabled = noIg.checked;
+      if(noIg.checked) igInput.value = '';
+      igInput.style.opacity = noIg.checked ? '.35' : '1';
+    });
+  }
+
+  // ---- Animazioni extra (rispettano prefers-reduced-motion) ----
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Contatori animati (statistiche home)
+  function animateCounters(){
+    if(reduceMotion) return;
+    document.querySelectorAll('.stat .n[data-count]').forEach(el => {
+      if(el.dataset.done) return;
+      const r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight * 0.88 && r.bottom > 0){
+        el.dataset.done = '1';
+        const target = +el.dataset.count, suf = el.dataset.suffix || '';
+        const t0 = performance.now();
+        (function step(t){
+          const p = Math.min((t - t0) / 900, 1);
+          el.textContent = Math.round(target * (p * (2 - p))) + suf;
+          if(p < 1) requestAnimationFrame(step);
+        })(t0);
+      }
+    });
+  }
+  window.addEventListener('scroll', animateCounters);
+  window.addEventListener('load', animateCounters);
+
+  // Parallax leggero sulla Z della home
+  const heroZ = document.querySelector('#page-home .hero-z');
+  if(heroZ && !reduceMotion){
+    window.addEventListener('scroll', () => {
+      if(document.getElementById('page-home').classList.contains('active')){
+        heroZ.style.transform = 'translateY(calc(-50% + ' + (window.scrollY * 0.08) + 'px))';
+      }
+    }, { passive: true });
+  }
+
+  // ---- Modulo contatti: raccoglie i dati e mostra conferma ----
+  // NOTA per collegare le email reali con Formspree:
+  // 1) crea un form su formspree.io  2) aggiungi al tag del modulo: action="https://formspree.io/f/TUOCODICE" method="POST"
+  // 3) rimuovi la riga e.preventDefault() qui sotto. I campi hanno gia' tutti l'attributo name pronto.
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const msg = document.getElementById('formMsg');
+    msg.style.display = 'block';
+    msg.style.color = '#b8935f';
+    msg.textContent = 'Grazie! Abbiamo ricevuto le tue informazioni: ti risponderemo entro 24 ore lavorative.';
+    this.reset();
+    if(igInput){ igInput.disabled = false; igInput.style.opacity = '1'; }
+    this.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  });
+</script>
+
+</body>
+</html>
