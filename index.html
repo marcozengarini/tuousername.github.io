@@ -619,8 +619,8 @@
   <section style="padding-top:20px;">
     <div class="wrap">
       <div class="contact-grid">
-        <form id="contactForm" data-reveal action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="79a97065-d45d-44eb-bf38-b80839a10841">
+        <form id="contactForm" data-reveal>
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
           <div class="form-section-title">I tuoi contatti</div>
           <div class="field-2col">
@@ -736,7 +736,7 @@
         <h4>Contatti</h4>
         <ul>
           <li><a href="mailto:ZENCO.msc@gmail.com">ZENCO.msc@gmail.com</a></li>
-          <li><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener">Instagram: @zenco.it</a></li>
+          <li><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener">Instagram — @zenco.it</a></li>
           <li>Marche, Italia</li>
         </ul>
       </div>
@@ -830,19 +830,31 @@
     }, { passive: true });
   }
 
-  // ---- Modulo contatti: raccoglie i dati e mostra conferma ----
-  // NOTA per collegare le email reali con Formspree:
-  // 1) crea un form su formspree.io  2) aggiungi al tag del modulo: action="https://formspree.io/f/TUOCODICE" method="POST"
-  // 3) rimuovi la riga e.preventDefault() qui sotto. I campi hanno gia' tutti l'attributo name pronto.
-  document.getElementById('contactForm').addEventListener('submit', function(e){
+  // ---- Modulo contatti: invio reale tramite Web3Forms ----
+  // Chiave Web3Forms gia' configurata: le richieste arrivano a ZENCO.msc@gmail.com
+  document.getElementById('contactForm').addEventListener('submit', async function(e){
     e.preventDefault();
     const msg = document.getElementById('formMsg');
-    msg.style.display = 'block';
-    msg.style.color = '#b8935f';
-    msg.textContent = 'Grazie! Abbiamo ricevuto le tue informazioni: ti risponderemo entro 24 ore lavorative.';
-    this.reset();
-    if(igInput){ igInput.disabled = false; igInput.style.opacity = '1'; }
-    this.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const btn = this.querySelector('.submit-btn');
+    const data = new FormData(this);
+    data.append('access_key', '79a97065-d45d-44eb-bf38-b80839a10841');
+    data.append('subject', 'Nuova richiesta dal sito zenco.it');
+    data.append('from_name', 'Sito ZENCO');
+    btn.disabled = true; btn.textContent = 'Invio in corso…';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+      const out = await res.json();
+      if(!out.success) throw new Error(out.message || 'errore');
+      msg.style.display = 'block'; msg.style.color = '#b8935f';
+      msg.textContent = 'Grazie! Abbiamo ricevuto le tue informazioni: ti risponderemo entro 24 ore lavorative.';
+      this.reset();
+      if(igInput){ igInput.disabled = false; igInput.style.opacity = '1'; }
+    } catch(err){
+      msg.style.display = 'block'; msg.style.color = '#c62828';
+      msg.textContent = 'Ops, qualcosa è andato storto. Riprova tra poco oppure scrivici a ZENCO.msc@gmail.com.';
+    }
+    btn.disabled = false; btn.textContent = 'Invia richiesta';
+    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 </script>
 
