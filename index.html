@@ -41,7 +41,10 @@
     border-bottom:1px solid var(--line);
   }
   .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1180px;margin:0 auto;}
-  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:1px;}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:1px;display:flex;align-items:center;}
+  .logo-img{height:30px;width:auto;display:block;}
+  .logo-txt{display:none;}
+  @media(max-width:640px){.logo-img{height:26px;}}
   .nav-links{display:flex;gap:36px;font-size:14px;font-weight:500;}
   .nav-links a{position:relative;padding-bottom:4px;}
   .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--black);transition:width .25s;}
@@ -126,12 +129,13 @@
     padding:16px 0;overflow:hidden;white-space:nowrap;
     border-top:1px solid var(--line-light);border-bottom:1px solid var(--line-light);
   }
-  .strip-track{display:inline-flex;animation:scroll 26s linear infinite;}
-  .strip-track span{
+  .strip-track{display:flex;width:max-content;animation:scroll 30s linear infinite;will-change:transform;}
+  .strip-set{display:flex;align-items:center;min-width:100vw;justify-content:space-around;flex:none;}
+  .strip-set span{
     font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:18px;
     padding:0 36px;color:rgba(247,245,240,0.55);
   }
-  .strip-track span b{color:var(--gold);font-style:normal;font-weight:600;}
+  .strip-set span b{color:var(--gold);font-style:normal;font-weight:600;}
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   /* ---------- SECTION GENERIC ---------- */
@@ -249,11 +253,13 @@
   .field{margin-bottom:24px;}
   .field label{display:block;font-size:13px;font-weight:600;letter-spacing:.4px;margin-bottom:8px;}
   .field input,.field textarea,.field select{
-    width:100%;border:none;border-bottom:1px solid var(--grey);background:transparent;
-    padding:12px 0;font-family:'Inter',sans-serif;font-size:15px;color:var(--black);
-    transition:border-color .25s;
+    width:100%;border:1px solid var(--line);border-radius:3px;background:#fff;
+    padding:12px 14px;font-family:'Inter',sans-serif;font-size:15px;color:var(--black);
+    transition:border-color .22s, box-shadow .22s;
   }
-  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold);}
+  .field input:focus,.field textarea:focus,.field select:focus{
+    outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,147,95,.13);
+  }
   .field textarea{resize:vertical;min-height:90px;}
   .submit-btn{
     background:var(--black);color:var(--cream);border:none;cursor:pointer;
@@ -264,6 +270,16 @@
   .contact-info-item{margin-bottom:38px;}
   .contact-info-item .l{font-size:13px;color:var(--grey);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
   .contact-info-item .v{font-family:'Fraunces',serif;font-size:24px;font-weight:500;}
+  #contactForm{
+    border:1px solid var(--line);border-radius:5px;background:var(--cream);padding:38px 34px;
+  }
+  @media(max-width:640px){#contactForm{padding:22px 18px;border-radius:4px;}}
+  .field{margin-bottom:20px;}
+  .check-item{
+    border:1px solid var(--line);border-radius:3px;background:#fff;
+    padding:11px 13px;transition:border-color .2s;
+  }
+  .check-item:hover{border-color:var(--gold);}
   .form-msg{margin-top:18px;font-size:14px;display:none;}
 
   .form-section-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--black);margin:44px 0 20px;padding-top:28px;border-top:1px solid var(--line);}
@@ -289,7 +305,7 @@
 
 <header>
   <nav class="nav">
-    <a href="#" class="logo" data-link="home">ZENCO</a>
+    <a href="#" class="logo" data-link="home"><img src="logo.png" alt="ZENCO" class="logo-img" onerror="this.remove();document.getElementById('logoTxt').style.display='inline';"><span id="logoTxt" class="logo-txt">ZENCO</span></a>
     <ul class="nav-links">
       <li><a href="#" data-link="home">Home</a></li>
       <li><a href="#" data-link="servizi">Servizi</a></li>
@@ -307,7 +323,7 @@
   <section class="hero">
     <div class="hero-z">Z</div>
     <div class="wrap hero-inner">
-      <div class="eyebrow">Agenzia Digitale — Marche, Italia</div>
+      <div class="eyebrow">Agenzia Digitale Italiana</div>
       <h1>Portiamo il tuo brand <em>in cima.</em></h1>
       <p class="lead">ZENCO costruisce strategie social, contenuti video e identità digitali per attività che vogliono smettere di passare inosservate — e iniziare a dominare il proprio mercato.</p>
       <div class="hero-actions">
@@ -320,14 +336,20 @@
 
   <div class="strip">
     <div class="strip-track">
-      <span>Social Media <b>Management</b></span>
-      <span>Video Editing & <b>Reels</b></span>
-      <span>Content <b>Creation</b></span>
-      <span>Strategia <b>Digitale</b></span>
-      <span>Social Media <b>Management</b></span>
-      <span>Video Editing & <b>Reels</b></span>
-      <span>Content <b>Creation</b></span>
-      <span>Strategia <b>Digitale</b></span>
+      <div class="strip-set">
+        <span>Social Media <b>Management</b></span>
+        <span>Video Editing & <b>Reels</b></span>
+        <span>Content <b>Creation</b></span>
+        <span>Strategia <b>Digitale</b></span>
+        <span>Strumenti che portano <b>clienti</b></span>
+      </div>
+      <div class="strip-set">
+        <span>Social Media <b>Management</b></span>
+        <span>Video Editing & <b>Reels</b></span>
+        <span>Content <b>Creation</b></span>
+        <span>Strategia <b>Digitale</b></span>
+        <span>Strumenti che portano <b>clienti</b></span>
+      </div>
     </div>
   </div>
 
@@ -340,7 +362,7 @@
         </div>
         <div class="stat-row" data-reveal>
           <div class="stat"><div class="n" data-count="360" data-suffix="°">360°</div><div class="l">Approccio completo, dalla strategia ai contenuti</div></div>
-          <div class="stat"><div class="n" data-count="1" data-suffix="">1</div><div class="l">Un solo referente per tutto il percorso</div></div>
+          <div class="stat"><div class="n">0</div><div class="l">Vincoli contrattuali: resti solo finché funziona</div></div>
           <div class="stat"><div class="n" data-count="100" data-suffix="%">100%</div><div class="l">Strategie su misura, mai template generici</div></div>
         </div>
       </div>
@@ -424,8 +446,8 @@
   <section class="page-hero">
     <div class="wrap">
       <span class="num">Servizi</span>
-      <h1>Tutto quello che serve per dominare il tuo settore online.</h1>
-      <p class="lead">Questi sono i nostri servizi principali — ma nessun cliente riceve un pacchetto preconfezionato. Per ogni attività costruiamo una soluzione su misura, componendo i servizi secondo le tue esigenze reali.</p>
+      <h1>Tutto quello che serve per dominare il tuo settore, online e dal vivo.</h1>
+      <p class="lead">Questi sono i nostri servizi principali, disponibili in pacchetti pronti per partire subito. Ogni pacchetto è personalizzabile — e se la tua attività ha esigenze diverse, ne costruiamo uno su misura.</p>
     </div>
   </section>
 
@@ -507,9 +529,9 @@
           <h3>Prodotti Fisici Smart</h3>
           <p class="desc">Una linea di dispositivi fisici esclusivi, personalizzati con il tuo brand, che si integrano nella tua attività e lavorano per te ogni giorno: portano nuovi clienti e fanno crescere i guadagni, in automatico. Come funzionano? Te lo mostriamo dal vivo, in consulenza.</p>
           <div class="tag-row">
-            <span class="tag">Design personalizzato</span>
+            <span class="tag">Design unico</span>
             <span class="tag">Installazione inclusa</span>
-            <span class="tag">Più clienti, più guadagni</span>
+            <span class="tag">Portano nuovi clienti e più guadagni</span>
           </div>
         </div>
       </div>
@@ -518,14 +540,18 @@
 
   <div class="strip">
     <div class="strip-track">
-      <span>Nessun <b>template</b></span>
-      <span>Solo <b>su misura</b></span>
-      <span>Analisi a <b>360°</b></span>
-      <span>Il cliente non è <b>un numero</b></span>
-      <span>Nessun <b>template</b></span>
-      <span>Solo <b>su misura</b></span>
-      <span>Analisi a <b>360°</b></span>
-      <span>Il cliente non è <b>un numero</b></span>
+      <div class="strip-set">
+        <span>Il cliente non è <b>un numero</b></span>
+        <span>Nessun <b>template generico</b></span>
+        <span>Servizi <b>su misura</b></span>
+        <span>Analisi a <b>360°</b></span>
+      </div>
+      <div class="strip-set">
+        <span>Il cliente non è <b>un numero</b></span>
+        <span>Nessun <b>template generico</b></span>
+        <span>Servizi <b>su misura</b></span>
+        <span>Analisi a <b>360°</b></span>
+      </div>
     </div>
   </div>
 
@@ -533,15 +559,15 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="num">Su misura</span>
-        <h2>Il tuo pacchetto non esiste ancora: lo costruiamo insieme.</h2>
-        <p>Per noi il cliente non è un numero, ma un'attività da studiare, seguire e aiutare a 360 gradi. Nella consulenza gratuita capiamo dove sei e dove vuoi arrivare — e componiamo i servizi nel modo più efficace per te, in modo unico e personale.</p>
+        <h2>Nessun pacchetto ti convince? Lo costruiamo insieme.</h2>
+        <p>I nostri pacchetti coprono la maggior parte delle esigenze, ma nessuna attività è uguale a un'altra. Per noi il cliente non è un numero: è un'attività da studiare, seguire e far crescere a 360 gradi. Nella consulenza gratuita capiamo dove sei e dove vuoi arrivare, poi scegliamo insieme il pacchetto giusto — o ne componiamo uno solo per te.</p>
       </div>
     </div>
   </section>
 
   <section class="cta-band">
     <div class="wrap">
-      <h2>Non sai da quale servizio iniziare?</h2>
+      <h2>Sei indeciso o non sai se facciamo al caso tuo?</h2>
       <a href="#" class="btn-primary" data-link="contatti">Parliamone insieme, è gratis</a>
     </div>
   </section>
@@ -561,18 +587,21 @@
 
   <section>
     <div class="wrap">
-      <div class="founder" data-reveal>
-        <div class="founder-photo">
-          <div class="fz">Z</div>
-          <span>Marco Zengarini — Fondatore<br><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener" style="color:var(--gold);">@zenco.it</a></span>
-        </div>
-        <div>
-          <span class="num">Il fondatore</span>
-          <h2 style="font-size:32px;font-weight:600;letter-spacing:-.5px;margin-bottom:18px;">Marco Zengarini</h2>
-          <p style="font-size:16px;color:var(--grey-dark);line-height:1.7;max-width:520px;">Sono cresciuto dentro un'azienda di famiglia, lavorando fin da piccolo accanto a mio padre e mio zio. Lì ho imparato cosa significa mandare avanti un'attività vera: la cura del cliente, il lavoro di ogni giorno, le decisioni che pesano. Mio padre mi ha insegnato molto; il resto l'ho imparato sul campo, con le mie esperienze.</p>
-          <p style="font-size:16px;color:var(--grey-dark);line-height:1.7;max-width:520px;margin-top:16px;">In parallelo è cresciuta la parte digitale: creo contenuti sui social da quando ero ragazzino, e questo mi ha permesso di osservare da vicino come cambiano le piattaforme e i loro algoritmi, anno dopo anno. Ho imparato il video editing da autodidatta, fino a portarlo a livello professionale, e negli anni ho fatto crescere i profili di amici e delle prime attività che si sono affidate a me.</p>
-          <p style="font-size:16px;color:var(--grey-dark);line-height:1.7;max-width:520px;margin-top:16px;">ZENCO unisce questi due mondi: la mentalità concreta di chi è cresciuto in azienda e la competenza di chi i social li vive da sempre. È l'agenzia che avrei voluto al fianco dell'attività della mia famiglia.</p>
-        </div>
+      <div class="about-text" data-reveal>
+        <span class="num">La nostra filosofia</span>
+        <h2 style="font-size:32px;font-weight:600;letter-spacing:-.5px;margin-bottom:22px;max-width:700px;">Il digitale non è una vetrina: è uno strumento di crescita.</h2>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;">Troppe attività eccellenti restano invisibili online. Non per mancanza di qualità, ma perché gestire i social bene richiede tempo, metodo e competenze che chi manda avanti un'impresa raramente ha a disposizione. ZENCO nasce per colmare quella distanza.</p>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;margin-top:18px;">Non ci limitiamo a pubblicare contenuti: costruiamo presenza. Studiamo l'attività, il suo pubblico e il suo mercato, definiamo obiettivi misurabili e lavoriamo perché ogni contenuto porti risultati concreti — più visibilità, più contatti, più clienti che varcano la porta.</p>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;margin-top:18px;">Al lavoro digitale affianchiamo strumenti fisici pensati per le attività con una sede reale, perché la crescita online ha senso solo se si traduce in risultati veri, anche dal vivo.</p>
+      </div>
+
+      <div class="about-text" data-reveal style="margin-top:80px;">
+        <span class="num">Dove stiamo andando</span>
+        <h2 style="font-size:32px;font-weight:600;letter-spacing:-.5px;margin-bottom:22px;max-width:700px;">Un'agenzia costruita per crescere insieme ai suoi clienti.</h2>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;">ZENCO è una realtà giovane, fondata da Marco Zengarini, cresciuto tra l'azienda di famiglia e il mondo dei contenuti digitali. Attorno al progetto si sta costruendo un team di professionisti selezionati — editor, creativi e specialisti — che condividono lo stesso standard di qualità.</p>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;margin-top:18px;">Il nostro obiettivo è preciso: diventare il punto di riferimento digitale per le attività delle Marche. È il territorio che conosciamo, dove possiamo incontrare i clienti di persona, entrare nelle loro attività e capire davvero come lavorano.</p>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;margin-top:18px;">Il resto del nostro lavoro non ha confini: strategia, contenuti e gestione dei profili si svolgono interamente online. Per questo collaboriamo con realtà in tutta Italia e con chi, dall'estero, cerca un partner italiano per la propria presenza digitale.</p>
+        <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;margin-top:18px;">Un'agenzia vale quanto i risultati che porta ai suoi clienti. Per questo non vincoliamo nessuno con contratti: chi resta con noi lo fa perché funziona.</p>
       </div>
 
       <div class="values-grid" data-reveal>
@@ -677,7 +706,7 @@
               <label class="check-item"><input type="checkbox" name="servizi" value="Non lo so ancora"> Non lo so ancora</label>
             </div></div>
           <div class="field"><label for="f-budget">Budget mensile indicativo per il marketing</label>
-            <select id="f-budget" name="budget"><option value="">Seleziona…</option><option>Fino a €300</option><option>€300 – €500</option><option>€500 – €1.000</option><option>€1.000 – €2.500</option><option>Oltre €2.500</option><option>Da definire insieme</option></select></div>
+            <select id="f-budget" name="budget"><option value="">Seleziona…</option><option>Fino a €300</option><option>€300 – €500</option><option>€500 – €1.000</option><option>€1.000 – €2.500</option><option>€2.500 – €5.000</option><option>Oltre €5.000</option><option>Da definire insieme</option></select></div>
 
           <button type="submit" class="submit-btn">Invia richiesta</button>
           <p style="font-size:12.5px;color:var(--grey);margin-top:14px;line-height:1.5;">Più dettagli ci dai, più la prima consulenza sarà concreta e utile. I tuoi dati restano riservati.</p>
@@ -687,11 +716,11 @@
         <div data-reveal>
           <div class="contact-info-item">
             <div class="l">Email</div>
-            <div class="v">ZENCO.msc@gmail.com</div>
+            <div class="v"><a href="mailto:info@zenco.it">info@zenco.it</a></div>
           </div>
           <div class="contact-info-item">
             <div class="l">Dove operiamo</div>
-            <div class="v">Marche, Italia — lavoriamo ovunque</div>
+            <div class="v" style="font-size:20px;line-height:1.45;">Marche dal vivo · in tutta Italia<br>e all'estero in digitale</div>
           </div>
           <div class="contact-info-item">
             <div class="l">Instagram</div>
@@ -730,14 +759,15 @@
           <li><a href="#" data-link="servizi">Social Media</a></li>
           <li><a href="#" data-link="servizi">Video Editing</a></li>
           <li><a href="#" data-link="servizi">Consulenza</a></li>
+          <li><a href="#" data-link="servizi">Strumenti per la crescita</a></li>
         </ul>
       </div>
       <div>
         <h4>Contatti</h4>
         <ul>
-          <li><a href="mailto:ZENCO.msc@gmail.com">ZENCO.msc@gmail.com</a></li>
+          <li><a href="mailto:info@zenco.it">info@zenco.it</a></li>
           <li><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener">Instagram — @zenco.it</a></li>
-          <li>Marche, Italia</li>
+          <li>Marche, Italia — in digitale ovunque</li>
         </ul>
       </div>
     </div>
@@ -831,7 +861,7 @@
   }
 
   // ---- Modulo contatti: invio reale tramite Web3Forms ----
-  // Chiave Web3Forms gia' configurata: le richieste arrivano a ZENCO.msc@gmail.com
+  // Chiave Web3Forms gia' configurata. NB: l'indirizzo di destinazione si cambia su web3forms.com > Settings
   document.getElementById('contactForm').addEventListener('submit', async function(e){
     e.preventDefault();
     const msg = document.getElementById('formMsg');
@@ -851,7 +881,7 @@
       if(igInput){ igInput.disabled = false; igInput.style.opacity = '1'; }
     } catch(err){
       msg.style.display = 'block'; msg.style.color = '#c62828';
-      msg.textContent = 'Ops, qualcosa è andato storto. Riprova tra poco oppure scrivici a ZENCO.msc@gmail.com.';
+      msg.textContent = 'Ops, qualcosa è andato storto. Riprova tra poco oppure scrivici a info@zenco.it.';
     }
     btn.disabled = false; btn.textContent = 'Invia richiesta';
     msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
