@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZENCO — Agenzia Digitale Marche</title>
 <meta name="description" content="ZENCO è un'agenzia digitale e creativa nelle Marche. Social media, video editing e strategia per portare il tuo brand in cima.">
+<link rel="canonical" href="https://zenco.it/">
+<meta name="theme-color" content="#f7f5f0">
+<!-- Icona nella scheda del browser + icona su iPhone quando si salva il sito nella home -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0a'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-weight='700' font-size='44' text-anchor='middle' fill='%23b8935f'%3EZ%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Anteprima quando il link viene condiviso (WhatsApp, Instagram, Facebook, LinkedIn...) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="ZENCO">
+<meta property="og:url" content="https://zenco.it/">
+<meta property="og:title" content="ZENCO — Agenzia Digitale Marche">
+<meta property="og:description" content="Social media, video editing e strategia per portare il tuo brand in cima. Prima consulenza gratuita.">
+<meta property="og:image" content="https://zenco.it/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,6 +29,7 @@
     --black:#0a0a0a;
     --cream:#f7f5f0;
     --gold:#b8935f;
+    --gold-text:#84653a; /* oro scurito per testi piccoli su crema (contrasto leggibile) */
     --grey:#8a8a8a;
     --grey-dark:#444444;
     --line:rgba(0,0,0,0.1);
@@ -39,12 +56,16 @@
     background:rgba(247,245,240,0.85);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
+    transition:background .3s, box-shadow .3s;
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;max-width:1180px;margin:0 auto;}
+  header.scrolled{background:rgba(247,245,240,0.94);box-shadow:0 6px 24px rgba(0,0,0,0.05);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;max-width:1180px;margin:0 auto;transition:padding .3s;}
+  header.scrolled .nav{padding-top:8px;padding-bottom:8px;}
   .logo{font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:1px;display:flex;align-items:center;}
-  .logo-img{height:56px;width:auto;display:block;}
+  .logo-img{height:56px;width:auto;display:block;transition:height .3s;}
+  header.scrolled .logo-img{height:44px;}
   .logo-txt{display:none;}
-  @media(max-width:640px){.logo-img{height:44px;}}
+  @media(max-width:640px){.logo-img{height:44px;} header.scrolled .logo-img{height:38px;}}
   .nav-links{display:flex;gap:36px;font-size:14px;font-weight:500;}
   .nav-links a{position:relative;padding-bottom:4px;}
   .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--black);transition:width .25s;}
@@ -56,11 +77,23 @@
   }
   .nav-cta:hover{background:var(--gold);}
   .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
-  .burger span{width:24px;height:2px;background:var(--black);}
+  .burger span{width:24px;height:2px;background:var(--black);transition:transform .25s, opacity .2s;}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   @media(max-width:860px){
     .nav-links{display:none;}
+    .nav-links.open{
+      display:flex;position:absolute;top:100%;left:0;right:0;
+      background:var(--cream);flex-direction:column;padding:24px 32px;gap:18px;
+      border-bottom:1px solid var(--line);font-size:16px;
+      animation:menuIn .25s ease both;
+    }
+    .nav-links.open.closing{animation:menuOut .22s ease both;}
     .burger{display:flex;}
   }
+  @keyframes menuIn{from{opacity:0;transform:translateY(-8px);}}
+  @keyframes menuOut{to{opacity:0;transform:translateY(-8px);}}
   @media(max-width:640px){
     .nav-cta{padding:8px 13px;font-size:11px;letter-spacing:.2px;}
   }
@@ -94,7 +127,7 @@
   .hero-inner{position:relative;z-index:1;}
   .eyebrow{
     font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
-    color:var(--gold);margin-bottom:24px;
+    color:var(--gold-text);margin-bottom:24px;
     display:flex;align-items:center;gap:10px;
   }
   .eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
@@ -129,6 +162,17 @@
   .hero-scroll::after{content:'';width:1px;height:50px;background:var(--grey);}
   @media(max-width:640px){.hero-scroll{display:none;}}
 
+  /* Ingresso hero: parole del titolo una dopo l'altra, poi testo e pulsanti */
+  .hero h1 .w{display:inline-block;animation:heroWord .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.15s + var(--d) * .07s);}
+  .hero .eyebrow{animation:fadeUp .8s cubic-bezier(.2,.7,.2,1) both;}
+  .hero p.lead{animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) .85s both;}
+  .hero-actions{animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) 1s both;}
+  .hero-scroll{animation:fadeIn 1s ease 1.4s both;}
+  .hero-z{animation:fadeIn 1.8s ease .2s both;}
+  @keyframes heroWord{from{opacity:0;transform:translateY(.35em);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}}
+  @keyframes fadeIn{from{opacity:0;}}
+
   /* ---------- MARQUEE STRIP ---------- */
   .strip{
     background:var(--black);color:var(--cream);
@@ -149,9 +193,10 @@
   @media(max-width:760px){section{padding:90px 0;}}
   .section-head{margin-bottom:72px;max-width:680px;}
   .num{
-    font-size:13px;font-weight:600;color:var(--gold);letter-spacing:2px;margin-bottom:18px;
+    font-size:13px;font-weight:600;color:var(--gold-text);letter-spacing:2px;margin-bottom:18px;
     display:block;
   }
+  .about-teaser .num{color:var(--gold);}
   .section-head h2{font-size:clamp(32px,4.5vw,52px);font-weight:600;letter-spacing:-1px;line-height:1.1;}
   .section-head p{font-size:17px;color:var(--grey-dark);margin-top:18px;line-height:1.6;max-width:560px;}
   .rule{border:none;border-top:1px solid var(--line);}
@@ -178,7 +223,7 @@
     transition:padding-left .3s;
   }
   .service-row:hover{padding-left:14px;}
-  .service-row .si{font-family:'Fraunces',serif;font-size:15px;color:var(--gold);font-weight:600;}
+  .service-row .si{font-family:'Fraunces',serif;font-size:15px;color:var(--gold-text);font-weight:600;}
   .service-row h3{font-size:24px;font-weight:600;letter-spacing:-.3px;}
   .service-row p{font-size:15px;color:var(--grey-dark);margin-top:6px;max-width:480px;}
   .service-row .arrow{
@@ -195,7 +240,7 @@
   /* ---------- WHY (3 col) ---------- */
   .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
   .why-card{background:var(--cream);padding:44px 36px;}
-  .why-card .wn{font-family:'Fraunces',serif;font-size:15px;color:var(--gold);font-weight:600;margin-bottom:22px;display:block;}
+  .why-card .wn{font-family:'Fraunces',serif;font-size:15px;color:var(--gold-text);font-weight:600;margin-bottom:22px;display:block;}
   .why-card h3{font-size:21px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;}
   .why-card p{font-size:15px;color:var(--grey-dark);line-height:1.6;}
   @media(max-width:760px){.why-grid{grid-template-columns:1fr;}}
@@ -278,6 +323,7 @@
   .contact-info-item .v{font-family:'Fraunces',serif;font-size:24px;font-weight:500;}
   #contactForm{
     border:1px solid var(--line);border-radius:5px;background:var(--cream);padding:38px 34px;
+    scroll-margin-top:110px;
   }
   @media(max-width:640px){#contactForm{padding:22px 18px;border-radius:4px;}}
   .field{margin-bottom:20px;}
@@ -299,12 +345,47 @@
   .field select{cursor:pointer;}
   .field ::placeholder{color:#b5b0a6;}
 
+  /* Modulo a step */
+  .form-progress{margin-bottom:30px;}
+  .fp-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--grey-dark);margin-bottom:10px;}
+  .fp-top b{color:var(--black);}
+  .fp-next{color:var(--grey);font-weight:500;text-transform:none;letter-spacing:.2px;font-size:13px;}
+  .fp-bar{height:2px;background:var(--line);overflow:hidden;}
+  .fp-bar span{display:block;height:100%;width:25%;background:var(--gold);transition:width .45s cubic-bezier(.2,.7,.2,1);}
+  .step{border:none;margin:0;padding:0;min-width:0;display:none;}
+  .step.active{display:block;animation:stepIn .4s ease both;}
+  @keyframes stepIn{from{opacity:0;transform:translateX(14px);}}
+  .form-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:10px;}
+  .form-nav .submit-btn{margin-top:0;}
+  .btn-back{background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--grey-dark);padding:12px 0;transition:color .2s;}
+  .btn-back:hover{color:var(--black);}
+  .btn-back.is-hidden{visibility:hidden;}
+
   /* page visibility */
   .page{display:none;}
-  .page.active{display:block;}
+  .page.active{display:block;animation:pageIn .5s ease both;}
+  @keyframes pageIn{from{opacity:0;}}
 
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
   [data-reveal].in{opacity:1;transform:translateY(0);}
+
+  /* Comparsa scaglionata: gli elementi di un gruppo entrano uno dopo l'altro */
+  [data-reveal][data-stagger]{opacity:1;transform:none;}
+  [data-stagger]:not(.in) > *{opacity:0;}
+  [data-stagger].in > *{animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i, 0) * 90ms);}
+
+  /* Navigazione da tastiera: contorno visibile solo con Tab, non con il mouse */
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold-text);outline-offset:3px;border-radius:2px;}
+  footer a:focus-visible,.about-teaser a:focus-visible{outline-color:var(--gold);}
+  .cta-band a:focus-visible{outline-color:var(--black);}
+  .check-item:focus-within{border-color:var(--gold-text);box-shadow:0 0 0 3px rgba(184,147,95,.18);}
+
+  /* Chi disattiva le animazioni nel sistema vede tutto subito, senza movimento */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important;}
+    [data-reveal],[data-stagger] > *{opacity:1 !important;transform:none !important;}
+    html{scroll-behavior:auto;}
+  }
 </style>
 </head>
 <body>
@@ -319,7 +400,7 @@
       <li><a href="#" data-link="contatti">Contatti</a></li>
     </ul>
     <a href="#" class="nav-cta" data-link="contatti">Consulenza Gratuita</a>
-    <button class="burger" id="burgerBtn" aria-label="Apri menu"><span></span><span></span><span></span></button>
+    <button class="burger" id="burgerBtn" aria-label="Apri menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 </header>
 
@@ -330,7 +411,7 @@
     <div class="hero-z">Z</div>
     <div class="wrap hero-inner">
       <div class="eyebrow">Agenzia Digitale Italiana</div>
-      <h1>Portiamo il tuo brand <em>in cima.</em></h1>
+      <h1><span class="w" style="--d:0">Portiamo</span> <span class="w" style="--d:1">il</span> <span class="w" style="--d:2">tuo</span> <span class="w" style="--d:3">brand</span> <em><span class="w" style="--d:6">in</span> <span class="w" style="--d:7">cima.</span></em></h1>
       <p class="lead">ZENCO costruisce strategie social, contenuti video e identità digitali per attività che vogliono smettere di passare inosservate — e iniziare a dominare il proprio mercato.</p>
       <div class="hero-actions">
         <a href="#" class="btn-primary" data-link="contatti">Prenota una consulenza gratuita</a>
@@ -366,7 +447,7 @@
           <span class="num">01 — Chi siamo</span>
           <blockquote>"Crediamo che ogni attività locale meriti la stessa cura digitale dei grandi brand. Nessun template, nessuna scorciatoia — solo strategia, contenuti e risultati misurabili."</blockquote>
         </div>
-        <div class="stat-row" data-reveal>
+        <div class="stat-row" data-reveal data-stagger>
           <div class="stat"><div class="n" data-count="360" data-suffix="°">360°</div><div class="l">Approccio completo, dalla strategia ai contenuti</div></div>
           <div class="stat"><div class="n">0</div><div class="l">Vincoli contrattuali: resti solo finché funziona</div></div>
           <div class="stat"><div class="n" data-count="100" data-suffix="%">100%</div><div class="l">Strategie su misura, mai template generici</div></div>
@@ -381,7 +462,7 @@
         <span class="num">02 — Cosa facciamo</span>
         <h2>Servizi pensati per portarti al livello successivo.</h2>
       </div>
-      <div class="services-list" data-reveal>
+      <div class="services-list" data-reveal data-stagger>
         <a href="#" class="service-row" data-link="servizi">
           <span class="si">01</span>
           <div><h3>Social Media Management</h3><p>Gestione completa dei tuoi profili: contenuti, programmazione, community.</p></div>
@@ -459,7 +540,7 @@
 
   <section class="svc-detail">
     <div class="wrap">
-      <div class="svc-detail-grid">
+      <div class="svc-detail-grid" data-reveal>
         <div><span class="si">01</span></div>
         <div>
           <h3>Social Media Management</h3>
@@ -477,7 +558,7 @@
 
   <section class="svc-detail">
     <div class="wrap">
-      <div class="svc-detail-grid">
+      <div class="svc-detail-grid" data-reveal>
         <div><span class="si">02</span></div>
         <div>
           <h3>Video Editing & Reels</h3>
@@ -495,7 +576,7 @@
 
   <section class="svc-detail">
     <div class="wrap">
-      <div class="svc-detail-grid">
+      <div class="svc-detail-grid" data-reveal>
         <div><span class="si">03</span></div>
         <div>
           <h3>Content Creation & Fotografia</h3>
@@ -512,7 +593,7 @@
 
   <section class="svc-detail">
     <div class="wrap">
-      <div class="svc-detail-grid">
+      <div class="svc-detail-grid" data-reveal>
         <div><span class="si">04</span></div>
         <div>
           <h3>Consulenza Strategica Aziendale</h3>
@@ -529,11 +610,11 @@
 
   <section class="svc-detail" style="border-bottom:none;">
     <div class="wrap">
-      <div class="svc-detail-grid">
+      <div class="svc-detail-grid" data-reveal>
         <div><span class="si">05</span></div>
         <div>
           <h3>Prodotti Fisici Smart</h3>
-          <p class="desc">Una linea di dispositivi fisici esclusivi, personalizzati con il tuo brand, che si integrano nella tua attività e lavorano per te ogni giorno: portano nuovi clienti e fanno crescere i guadagni, in automatico. Come funzionano? Te lo mostriamo dal vivo, in consulenza.</p>
+          <p class="desc">Una linea di dispositivi fisici esclusivi, che si integrano nella tua attività e lavorano per te ogni giorno: portano nuovi clienti e fanno crescere i guadagni, in automatico. Come funzionano? Te lo mostriamo dal vivo, in consulenza.</p>
           <div class="tag-row">
             <span class="tag">Design unico</span>
             <span class="tag">Installazione inclusa</span>
@@ -610,7 +691,7 @@
         <p style="font-size:16px;color:var(--grey-dark);line-height:1.75;max-width:680px;margin-top:18px;">Un'agenzia vale quanto i risultati che porta ai suoi clienti. Per questo non vincoliamo nessuno con contratti: chi resta con noi lo fa perché funziona.</p>
       </div>
 
-      <div class="values-grid" data-reveal>
+      <div class="values-grid" data-reveal data-stagger>
         <div class="value-item">
           <h4>Zero compromessi</h4>
           <p>Sulla qualità del lavoro consegnato, sempre.</p>
@@ -654,9 +735,15 @@
   <section style="padding-top:20px;">
     <div class="wrap">
       <div class="contact-grid">
-        <form id="contactForm" data-reveal>
+        <form id="contactForm" data-reveal novalidate>
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
+          <div class="form-progress" aria-live="polite">
+            <div class="fp-top"><span>Passo <b id="fpNum">1</b> di 4</span><span class="fp-next" id="fpNext">Poi: La tua azienda</span></div>
+            <div class="fp-bar"><span id="fpFill"></span></div>
+          </div>
+
+          <fieldset class="step active" data-title="I tuoi contatti">
           <div class="form-section-title">I tuoi contatti</div>
           <div class="field-2col">
             <div class="field"><label for="f-nome">Nome e Cognome *</label><input type="text" id="f-nome" name="nome" required></div>
@@ -664,6 +751,9 @@
           </div>
           <div class="field"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" required></div>
 
+          </fieldset>
+
+          <fieldset class="step" data-title="La tua azienda">
           <div class="form-section-title">La tua azienda</div>
           <div class="field"><label for="f-azienda">Nome dell'azienda *</label><input type="text" id="f-azienda" name="azienda" required></div>
           <div class="field"><label for="f-settore">Di cosa si occupa l'azienda? *</label><input type="text" id="f-settore" name="settore" placeholder="Es. ristorante, hotel, palestra, studio professionale..." required></div>
@@ -681,6 +771,9 @@
           <div class="field"><label for="f-fatturato">Range di fatturato annuo</label>
             <select id="f-fatturato" name="fatturato"><option value="">Seleziona…</option><option>Fino a €100.000</option><option>€100.000 – €250.000</option><option>€250.000 – €500.000</option><option>€500.000 – €1.000.000</option><option>Oltre €1.000.000</option><option>Preferisco non dirlo</option></select></div>
 
+          </fieldset>
+
+          <fieldset class="step" data-title="La tua presenza online">
           <div class="form-section-title">La tua presenza online</div>
           <div class="field"><label for="f-ig">Instagram dell'azienda</label><input type="text" id="f-ig" name="instagram" placeholder="@nomeazienda">
             <label class="check-item" style="margin-top:12px;"><input type="checkbox" id="f-no-ig" name="no_instagram" value="Sì"> Non abbiamo Instagram</label></div>
@@ -699,6 +792,9 @@
             <select id="f-produce" name="produce_contenuti"><option value="">Seleziona…</option><option>Sì, con regolarità</option><option>Sì, ogni tanto</option><option>No, non ancora</option></select></div>
           <div class="field"><label for="f-problemi">Se sì: cosa non ti convince della produzione attuale?</label><textarea id="f-problemi" name="problemi_attuali" rows="3" placeholder="Qualità, costanza, risultati, tempo che porta via..."></textarea></div>
 
+          </fieldset>
+
+          <fieldset class="step" data-title="Cosa cerchi">
           <div class="form-section-title">Cosa cerchi</div>
           <div class="field"><label for="f-obiettivo">Che obiettivo vuoi raggiungere con noi? *</label><textarea id="f-obiettivo" name="obiettivo" rows="3" required placeholder="Es. più clienti nel weekend, far conoscere il nuovo locale, vendere di più..."></textarea></div>
           <div class="field"><label>A quali servizi sei interessato?</label>
@@ -714,7 +810,12 @@
           <div class="field"><label for="f-budget">Budget mensile indicativo per il marketing</label>
             <select id="f-budget" name="budget"><option value="">Seleziona…</option><option>Fino a €300</option><option>€300 – €500</option><option>€500 – €1.000</option><option>€1.000 – €2.500</option><option>€2.500 – €5.000</option><option>Oltre €5.000</option><option>Da definire insieme</option></select></div>
 
-          <button type="submit" class="submit-btn">Invia richiesta</button>
+          </fieldset>
+
+          <div class="form-nav">
+            <button type="button" class="btn-back is-hidden" id="stepBack">← Indietro</button>
+            <button type="submit" class="submit-btn" id="stepNext">Avanti →</button>
+          </div>
           <p style="font-size:12.5px;color:var(--grey);margin-top:14px;line-height:1.5;">Più dettagli ci dai, più la prima consulenza sarà concreta e utile. I tuoi dati restano riservati.</p>
           <div class="form-msg" id="formMsg"></div>
         </form>
@@ -723,6 +824,10 @@
           <div class="contact-info-item">
             <div class="l">Telefono</div>
             <div class="v"><a href="tel:+393270654509">+39 327 065 4509</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="l">WhatsApp</div>
+            <div class="v"><a href="https://wa.me/393270654509?text=Ciao%20ZENCO%2C%20vorrei%20qualche%20informazione" target="_blank" rel="noopener">Scrivici su WhatsApp ↗</a></div>
           </div>
           <div class="contact-info-item">
             <div class="l">Email</div>
@@ -776,6 +881,7 @@
         <h4>Contatti</h4>
         <ul>
           <li><a href="tel:+393270654509">+39 327 065 4509</a></li>
+          <li><a href="https://wa.me/393270654509?text=Ciao%20ZENCO%2C%20vorrei%20qualche%20informazione" target="_blank" rel="noopener">WhatsApp — scrivici</a></li>
           <li><a href="mailto:info@zenco.it">info@zenco.it</a></li>
           <li><a href="https://www.instagram.com/zenco.it" target="_blank" rel="noopener">Instagram — @zenco.it</a></li>
           <li>Marche, Italia — in digitale ovunque</li>
@@ -784,37 +890,88 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 ZENCO — Zengarini Multi-Service Company</span>
-      <span>P.IVA in fase di apertura</span>
     </div>
   </div>
 </footer>
 
 <script>
-  // ---- Routing semplice tra "pagine" (single file, no reload) ----
+  // ---- Routing tra "pagine" con indirizzo proprio (zenco.it/#servizi ecc.) ----
   const pages = document.querySelectorAll('.page');
   const links = document.querySelectorAll('[data-link]');
+  const titles = {
+    'home': 'ZENCO — Agenzia Digitale Marche',
+    'servizi': 'Servizi — ZENCO',
+    'chi-siamo': 'Chi Siamo — ZENCO',
+    'contatti': 'Contatti — ZENCO'
+  };
+  function pageFromHash(){
+    const id = location.hash.slice(1);
+    return document.getElementById('page-' + id) ? id : 'home';
+  }
   function goTo(id){
     pages.forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
+    document.title = titles[id] || titles.home;
     window.scrollTo({top:0,behavior:'instant'});
-    document.getElementById('mobileMenu')?.classList.remove('open');
+    closeMenu();
     revealCheck();
     animateCounters();
   }
-  links.forEach(l => l.addEventListener('click', e => {
-    e.preventDefault();
-    goTo(l.dataset.link);
-  }));
+  links.forEach(l => {
+    const id = l.dataset.link;
+    l.setAttribute('href', id === 'home' ? location.pathname : '#' + id);
+    l.addEventListener('click', e => {
+      e.preventDefault();
+      if(id !== pageFromHash()) history.pushState(null, '', id === 'home' ? location.pathname : '#' + id);
+      goTo(id);
+    });
+  });
+  window.addEventListener('popstate', () => goTo(pageFromHash()));
+  document.addEventListener('DOMContentLoaded', () => {
+    if(pageFromHash() !== 'home') goTo(pageFromHash());
+  });
 
   // ---- Burger menu (mobile) ----
   const burgerBtn = document.getElementById('burgerBtn');
-  burgerBtn.addEventListener('click', () => {
-    const nav = document.querySelector('.nav-links');
-    if(nav.style.display === 'flex'){
-      nav.style.display = 'none';
-    } else {
-      nav.style.cssText = 'display:flex;position:fixed;top:73px;left:0;right:0;background:#f7f5f0;flex-direction:column;padding:24px 32px;gap:18px;border-bottom:1px solid rgba(0,0,0,0.1);';
+  const navLinks = document.querySelector('.nav-links');
+  let menuOpenY = 0;
+  const menuIsOpen = () => navLinks.classList.contains('open') && !navLinks.classList.contains('closing');
+  function setMenu(open){
+    burgerBtn.classList.toggle('open', open);
+    burgerBtn.setAttribute('aria-expanded', open);
+    burgerBtn.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+    if(open){
+      navLinks.classList.remove('closing');
+      navLinks.classList.add('open');
+      menuOpenY = window.scrollY;
+    } else if(menuIsOpen()){
+      // Su desktop o senza animazioni si chiude subito, altrimenti dopo l'animazione di uscita
+      if(window.innerWidth > 860 || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        navLinks.classList.remove('open');
+        return;
+      }
+      navLinks.classList.add('closing');
+      navLinks.addEventListener('animationend', () => {
+        if(navLinks.classList.contains('closing')) navLinks.classList.remove('open', 'closing');
+      }, { once: true });
     }
+  }
+  function closeMenu(){ setMenu(false); }
+  burgerBtn.addEventListener('click', () => setMenu(!menuIsOpen()));
+  // Se il menu è aperto e si scorre la pagina col dito, si chiude da solo
+  window.addEventListener('scroll', () => {
+    if(menuIsOpen() && Math.abs(window.scrollY - menuOpenY) > 10) closeMenu();
+  }, { passive: true });
+
+  // ---- Header che si compatta quando si scorre ----
+  const header = document.querySelector('header');
+  function headerCheck(){ header.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', headerCheck, { passive: true });
+  headerCheck();
+
+  // ---- Comparsa scaglionata: ogni elemento del gruppo parte con un piccolo ritardo ----
+  document.querySelectorAll('[data-stagger]').forEach(group => {
+    [...group.children].forEach((child, i) => child.style.setProperty('--i', i));
   });
 
   // ---- Scroll reveal ----
@@ -871,10 +1028,38 @@
     }, { passive: true });
   }
 
+  // ---- Modulo contatti a step (4 passaggi con barra di avanzamento) ----
+  const form = document.getElementById('contactForm');
+  const steps = [...form.querySelectorAll('.step')];
+  const stepNext = document.getElementById('stepNext'), stepBack = document.getElementById('stepBack');
+  let currentStep = 0;
+  const isLastStep = () => currentStep === steps.length - 1;
+  function showStep(i){
+    currentStep = i;
+    steps.forEach((s, k) => s.classList.toggle('active', k === i));
+    document.getElementById('fpNum').textContent = i + 1;
+    document.getElementById('fpNext').textContent = isLastStep() ? 'Ultimo passo' : 'Poi: ' + steps[i + 1].dataset.title;
+    document.getElementById('fpFill').style.width = ((i + 1) / steps.length * 100) + '%';
+    stepBack.classList.toggle('is-hidden', i === 0);
+    stepNext.textContent = isLastStep() ? 'Invia richiesta' : 'Avanti →';
+    if(form.getBoundingClientRect().top < 0) form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  }
+  // Controlla i campi obbligatori del passo; se ne manca uno lo segnala e si ferma
+  function stepValid(step){
+    for(const el of step.querySelectorAll('input, select, textarea')){
+      if(!el.checkValidity()){ el.reportValidity(); return false; }
+    }
+    return true;
+  }
+  stepBack.addEventListener('click', () => showStep(currentStep - 1));
+
   // ---- Modulo contatti: invio reale tramite Web3Forms ----
   // Chiave Web3Forms gia' configurata. NB: l'indirizzo di destinazione si cambia su web3forms.com > Settings
-  document.getElementById('contactForm').addEventListener('submit', async function(e){
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
+    // "Avanti" (anche premendo Invio) passa al passo successivo; solo l'ultimo invia davvero
+    if(!stepValid(steps[currentStep])) return;
+    if(!isLastStep()){ showStep(currentStep + 1); return; }
     const msg = document.getElementById('formMsg');
     const btn = this.querySelector('.submit-btn');
     const data = new FormData(this);
@@ -886,15 +1071,16 @@
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
       const out = await res.json();
       if(!out.success) throw new Error(out.message || 'errore');
-      msg.style.display = 'block'; msg.style.color = '#b8935f';
+      msg.style.display = 'block'; msg.style.color = '#84653a';
       msg.textContent = 'Grazie! Abbiamo ricevuto le tue informazioni: ti risponderemo entro 24 ore lavorative.';
       this.reset();
       if(igInput){ igInput.disabled = false; igInput.style.opacity = '1'; }
+      showStep(0);
     } catch(err){
       msg.style.display = 'block'; msg.style.color = '#c62828';
       msg.textContent = 'Ops, qualcosa è andato storto. Riprova tra poco oppure scrivici a info@zenco.it.';
     }
-    btn.disabled = false; btn.textContent = 'Invia richiesta';
+    btn.disabled = false; btn.textContent = isLastStep() ? 'Invia richiesta' : 'Avanti →';
     msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 </script>
